@@ -1,0 +1,40 @@
+Orbit Files — resultado dos testes do núcleo (módulo :core)
+Executado em 2026-11-19 01:30 UTC com Kotlin 2.2.21 / JDK 21
+
+  ✔ AnalysisTest.checksum
+  ✔ AnalysisTest.cleaner
+  ✔ AnalysisTest.duplicates
+  ✔ AnalysisTest.storageReport
+  ✔ FileOpsTest.cancelStopsAndCleansPartial
+  ✔ FileOpsTest.conflictPolicies
+  ✔ FileOpsTest.copyTreeWithProgress
+  ✔ FileOpsTest.deleteRecursive
+  ✔ FileOpsTest.duplicateInPlace
+  ✔ FileOpsTest.moveAndGuardAgainstSelf
+  ✔ FileOpsTest.renameAndCreate
+  ✔ FileOpsTest.uniqueNames
+  ✔ FileOpsTest.validateNames
+  ✔ FormattersTest.categories
+  ✔ FormattersTest.durationAndPercent
+  ✔ FormattersTest.relative
+  ✔ FormattersTest.sizes
+  ✔ LanShareServerTest.serverEndToEnd
+  ✔ RenameArchiveTest.renameDetectsConflictsAndSwaps
+  ✔ RenameArchiveTest.renamePatterns
+  ✔ RenameArchiveTest.zipRoundTrip
+  ✔ RenameArchiveTest.zipSlipIsBlocked
+  ✔ SearchTest.fuzzyScoring
+  ✔ SearchTest.naturalLanguageEnAndExt
+  ✔ SearchTest.naturalLanguagePt
+  ✔ SearchTest.searcherFilters
+  ✔ SortingTest.naturalOrder
+  ✔ SortingTest.sorterFoldersFirstAndDirection
+  ✔ TrashJournalTest.journalUndo
+  ✔ TrashJournalTest.purgeAndEmpty
+  ✔ TrashJournalTest.restoreDoesNotOverwrite
+  ✔ TrashJournalTest.trashRestoreRoundTrip
+  ✔ VaultTest.roundTripManySizes
+  ✔ VaultTest.storeLifecycle
+  ✔ VaultTest.tamperAndTruncationDetected
+
+35 passaram, 0 falharam

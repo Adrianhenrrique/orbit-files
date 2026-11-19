@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shortcuts xmlns:android="http://schemas.android.com/apk/res/android">
+    <shortcut android:shortcutId="search" android:enabled="true" android:icon="@drawable/ic_shortcut_search" android:shortcutShortLabel="@string/shortcut_search">
+        <intent android:action="android.intent.action.VIEW" android:targetPackage="com.orbitfiles.app" android:targetClass="com.orbitfiles.app.MainActivity">
+            <extra android:name="destination" android:value="search" />
+        </intent>
+    </shortcut>
+    <shortcut android:shortcutId="clean" android:enabled="true" android:icon="@drawable/ic_shortcut_clean" android:shortcutShortLabel="@string/shortcut_clean">
+        <intent android:action="android.intent.action.VIEW" android:targetPackage="com.orbitfiles.app" android:targetClass="com.orbitfiles.app.MainActivity">
+            <extra android:name="destination" android:value="cleaner" />
+        </intent>
+    </shortcut>
+    <shortcut android:shortcutId="vault" android:enabled="true" android:icon="@drawable/ic_shortcut_vault" android:shortcutShortLabel="@string/shortcut_vault">
+        <intent android:action="android.intent.action.VIEW" android:targetPackage="com.orbitfiles.app" android:targetClass="com.orbitfiles.app.MainActivity">
+            <extra android:name="destination" android:value="vault" />
+        </intent>
+    </shortcut>
+    <shortcut android:shortcutId="wifi" android:enabled="true" android:icon="@drawable/ic_shortcut_wifi" android:shortcutShortLabel="@string/shortcut_wifi">
+        <intent android:action="android.intent.action.VIEW" android:targetPackage="com.orbitfiles.app" android:targetClass="com.orbitfiles.app.MainActivity">
+            <extra android:name="destination" android:value="share" />
+        </intent>
+    </shortcut>
+</shortcuts>

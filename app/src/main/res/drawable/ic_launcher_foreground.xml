@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp" android:height="108dp"
+    android:viewportWidth="108" android:viewportHeight="108">
+    <!-- Folder -->
+    <path android:fillColor="#FF8B7BFF"
+        android:pathData="M38,40 h12 l4,4 h16 a4,4 0 0 1 4,4 v20 a4,4 0 0 1 -4,4 h-32 a4,4 0 0 1 -4,-4 v-24 a4,4 0 0 1 4,-4 z" />
+    <path android:fillColor="#FFB4A9FF"
+        android:pathData="M34,52 h40 v16 a4,4 0 0 1 -4,4 h-32 a4,4 0 0 1 -4,-4 z" />
+    <!-- Orbit ring -->
+    <group android:rotation="-22" android:pivotX="54" android:pivotY="56">
+        <path android:strokeColor="#FF3EE6C1" android:strokeWidth="3" android:fillColor="#00000000"
+            android:pathData="M22,56 a32,11 0 1,0 64,0 a32,11 0 1,0 -64,0" />
+    </group>
+    <!-- Satellite -->
+    <path android:fillColor="#FF3EE6C1"
+        android:pathData="M79,39 a4.5,4.5 0 1,0 9,0 a4.5,4.5 0 1,0 -9,0" />
+</vector>

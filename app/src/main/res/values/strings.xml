@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Orbit Files</string>
+    <string name="shortcut_search">Buscar</string>
+    <string name="shortcut_clean">Limpeza</string>
+    <string name="shortcut_vault">Cofre</string>
+    <string name="shortcut_wifi">Wi-Fi</string>
+</resources>
