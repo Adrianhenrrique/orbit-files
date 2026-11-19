@@ -237,7 +237,7 @@ private fun MainUi(c: AppContainer, activity: MainActivity) {
                     nav.stack.forEachIndexed { index, dest ->
                         key(index, dest) {
                             val visible = remember { MutableTransitionState(false).apply { targetState = true } }
-                            AnimatedVisibility(visible, enter = slideInHorizontally { it / 4 } + fadeIn()) {
+                            androidx.compose.animation.AnimatedVisibility(visibleState = visible, enter = slideInHorizontally { it / 4 } + fadeIn()) {
                                 Surface(Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.surface) {
                                     CompositionLocalProvider(LocalIsTopScreen provides (index == nav.stack.lastIndex)) {
                                         DestContent(c, nav, dest)
