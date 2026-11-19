@@ -1,0 +1,26 @@
+# Build do Orbit Files no Codemagic (plano gratuito: 500 min/mês em Mac mini M2).
+workflows:
+  android-apk:
+    name: Orbit Files – APK
+    instance_type: mac_mini_m2
+    max_build_duration: 60
+    environment:
+      java: 17
+    triggering:
+      events:
+        - push
+      branch_patterns:
+        - pattern: main
+    scripts:
+      - name: Testes do núcleo
+        script: ./gradlew :core:test --console=plain
+      - name: Compilar APKs
+        script: ./gradlew :app:assembleDebug :app:assembleRelease --console=plain
+      - name: Renomear APKs
+        script: |
+          mkdir -p out
+          cp app/build/outputs/apk/release/app-release.apk out/OrbitFiles-1.0.0.apk
+          cp app/build/outputs/apk/debug/app-debug.apk out/OrbitFiles-1.0.0-debug.apk
+    artifacts:
+      - out/*.apk
+      - app/build/outputs/mapping/release/mapping.txt
