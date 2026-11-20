@@ -126,7 +126,7 @@ class SearchViewModel(private val c: AppContainer) : ViewModel() {
             if (trimmed.isNotBlank()) { history.remove(trimmed); history.add(0, trimmed); while (history.size > 8) history.removeAt(history.lastIndex) }
         } catch (_: OperationCancelledException) {
         } finally {
-            searching = false
+            if (token === t) searching = false
         }
     }
 

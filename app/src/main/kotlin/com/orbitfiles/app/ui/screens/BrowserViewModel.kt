@@ -13,8 +13,11 @@ import com.orbitfiles.app.data.FolderPref
 import com.orbitfiles.app.data.ViewMode
 import com.orbitfiles.core.SortBy
 import com.orbitfiles.core.TextMatch
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.drop
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import java.io.File
 
@@ -31,6 +34,7 @@ class PaneState(initial: File, val id: Long) {
     /** Restored scroll positions per folder (index, offset). */
     val scroll = HashMap<String, Pair<Int, Int>>()
     var job: Job? = null
+    var generation = 0
 
     val visible: List<FileEntry> get() = if (filter.isBlank()) entries else entries.filter { TextMatch.score(it.name, filter) > 0 }
     val selectionMode: Boolean get() = selection.isNotEmpty()
@@ -51,7 +55,14 @@ class BrowserViewModel(private val c: AppContainer) : ViewModel() {
         tabs += PaneState(primary, nextId++).also { load(it) }
         // Reload every open folder whenever something changes on disk through the app.
         viewModelScope.launch { c.ops.version.drop(1).collect { _ -> tabs.forEach { pane -> load(pane, quiet = true) } } }
-        viewModelScope.launch { c.settings.settings.drop(1).collect { _ -> tabs.forEach { pane -> load(pane, quiet = true) } } }
+        // Only settings that affect listings trigger a reload (not theme, lock, onboarding…).
+        viewModelScope.launch {
+            c.settings.settings
+                .map { listOf(it.showHidden, it.foldersFirst, it.sortBy, it.ascending, it.viewMode, it.rememberFolderView, it.folderPrefs) }
+                .distinctUntilChanged()
+                .drop(1)
+                .collect { _ -> tabs.forEach { pane -> load(pane, quiet = true) } }
+        }
     }
 
     val current: PaneState get() = tabs[active.coerceIn(0, tabs.lastIndex)]
@@ -66,21 +77,30 @@ class BrowserViewModel(private val c: AppContainer) : ViewModel() {
 
     fun load(p: PaneState, quiet: Boolean = false) {
         p.job?.cancel()
+        // Each load gets a generation number: results of an older (superseded) load are ignored,
+        // so a cancelled listing can never overwrite the newer one with an error/empty state.
+        val gen = ++p.generation
         if (!quiet) p.loading = true
         p.job = viewModelScope.launch {
             try {
                 val pref = prefFor(p.dir)
                 val list = c.storage.list(p.dir, settings.showHidden, pref.sortBy, pref.ascending, settings.foldersFirst)
+                if (gen != p.generation) return@launch
                 p.entries = list
                 p.error = null
                 val alive = list.map { it.path }.toSet()
                 if (p.selection.isNotEmpty()) p.selection = p.selection.filter { it in alive }.toSet()
+            } catch (e: CancellationException) {
+                throw e
             } catch (e: Exception) {
+                if (gen != p.generation) return@launch
                 p.entries = emptyList()
                 p.error = e.message ?: "Não foi possível abrir esta pasta"
             } finally {
-                p.loading = false
-                p.refreshing = false
+                if (gen == p.generation) {
+                    p.loading = false
+                    p.refreshing = false
+                }
             }
         }
     }
